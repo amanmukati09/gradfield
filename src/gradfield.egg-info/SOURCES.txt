@@ -3,6 +3,7 @@ pyproject.toml
 src/gradfield/__init__.py
 src/gradfield/cli.py
 src/gradfield/notebook.py
+src/gradfield/optimize.py
 src/gradfield/renderer.py
 src/gradfield/sampler.py
 src/gradfield/torch_adapter.py

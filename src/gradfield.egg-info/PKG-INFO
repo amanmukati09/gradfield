@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: gradfield
-Version: 0.3.0
+Version: 0.5.0
 Summary: Gradient field & loss landscape visualizer for PyTorch and NumPy
 Author-email: Aman Mukati <amanmukati@yahoo.com>
 License: MIT
@@ -135,8 +135,6 @@ python example_torch_model.py # MLP on XOR loss landscape
 
 ## Roadmap
 
-- [ ] C++ accelerated grid sampler via pybind11
-- [ ] 1D loss curve along a direction
 - [ ] SGD / Adam / RMSProp built-in trajectory recorders
 - [ ] Jupyter widget support
 - [ ] Multi-trajectory comparison

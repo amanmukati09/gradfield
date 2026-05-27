@@ -3,9 +3,8 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "gradfield"
-version = "0.3.0"
-description = "Gradient field & loss landscape visualizer for PyTorch and NumPy"
-readme = "README.md"
+version = "0.5.0"
+description = "Gradient field & loss landscape visualizer — interactive 3D plots for any Python function or PyTorch model, with built-in optimizers and CLI"readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Aman Mukati", email = "amanmukati@yahoo.com" }]
 keywords = ["machine-learning", "visualization", "loss-landscape", "pytorch", "gradient"]

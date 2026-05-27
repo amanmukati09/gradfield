@@ -135,3 +135,43 @@ def test_plot_non_notebook(tmp_path):
     out = str(tmp_path / "plot_test.html")
     plot("sphere", resolution=20, output=out)
     assert os.path.exists(out)
+
+def test_optimize_sgd_shape():
+    from gradfield import optimize
+    traj = optimize("sphere", optimizer="sgd", steps=100, lr=0.01)
+    assert traj.shape == (101, 2)
+
+
+def test_optimize_adam_converges():
+    from gradfield import optimize
+    traj = optimize("sphere", optimizer="adam", start=(2.0, 2.0), steps=300, lr=0.05)
+    assert abs(traj[-1, 0]) < 0.1
+    assert abs(traj[-1, 1]) < 0.1
+
+
+def test_optimize_momentum():
+    from gradfield import optimize
+    traj = optimize("sphere", optimizer="momentum", start=(1.0, 1.0), steps=200, lr=0.01)
+    assert traj.shape == (201, 2)
+
+
+def test_optimize_rmsprop():
+    from gradfield import optimize
+    traj = optimize("sphere", optimizer="rmsprop", start=(1.0, 1.0), steps=200, lr=0.01)
+    assert traj.shape == (201, 2)
+
+
+def test_optimize_with_plot(tmp_path):
+    from gradfield import optimize, plot
+    traj = optimize("rosenbrock", optimizer="adam", start=(-1.5, 2.5), steps=200, lr=0.01)
+    out = str(tmp_path / "optim_plot.html")
+    plot("rosenbrock", trajectories=[traj], output=out)
+    import os
+    assert os.path.exists(out)
+
+
+def test_optimize_all_optimizers():
+    from gradfield import optimize
+    for opt in ["sgd", "momentum", "adam", "rmsprop"]:
+        traj = optimize("sphere", optimizer=opt, start=(1.0, 1.0), steps=50, lr=0.01)
+        assert traj.shape == (51, 2)
