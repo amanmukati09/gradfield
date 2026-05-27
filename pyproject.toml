@@ -3,7 +3,7 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "gradfield"
-version = "0.1.0"
+version = "0.3.0"
 description = "Gradient field & loss landscape visualizer for PyTorch and NumPy"
 readme = "README.md"
 license = { text = "MIT" }
@@ -39,3 +39,6 @@ Issues     = "https://github.com/amanmukati09/gradfield/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[project.scripts]
+gradfield = "gradfield.cli:main"

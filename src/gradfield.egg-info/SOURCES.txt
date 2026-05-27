@@ -1,12 +1,15 @@
 README.md
 pyproject.toml
 src/gradfield/__init__.py
+src/gradfield/cli.py
+src/gradfield/notebook.py
 src/gradfield/renderer.py
 src/gradfield/sampler.py
 src/gradfield/torch_adapter.py
 src/gradfield.egg-info/PKG-INFO
 src/gradfield.egg-info/SOURCES.txt
 src/gradfield.egg-info/dependency_links.txt
+src/gradfield.egg-info/entry_points.txt
 src/gradfield.egg-info/requires.txt
 src/gradfield.egg-info/top_level.txt
 tests/test_gradfield.py

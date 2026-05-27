@@ -81,3 +81,57 @@ def test_render_with_trajectory(tmp_path):
 
     import os
     assert os.path.exists(result)
+
+def test_cli_plot_named(tmp_path):
+    from gradfield.cli import cmd_plot
+    import types
+
+    args = types.SimpleNamespace(
+        function="sphere",
+        resolution=20,
+        xrange=None,
+        yrange=None,
+        output=str(tmp_path / "cli_test.html"),
+        colorscale="Viridis",
+        no_gradients=False,
+        no_browser=True,
+    )
+    cmd_plot(args)
+    import os
+    assert os.path.exists(args.output)
+
+
+def test_cli_plot_expr(tmp_path):
+    from gradfield.cli import cmd_plot
+    import types
+
+    args = types.SimpleNamespace(
+        function="x**2 + y**2",
+        resolution=20,
+        xrange=None,
+        yrange=None,
+        output=str(tmp_path / "cli_expr_test.html"),
+        colorscale="Viridis",
+        no_gradients=False,
+        no_browser=True,
+    )
+    cmd_plot(args)
+    import os
+    assert os.path.exists(args.output)
+
+
+def test_cli_list(capsys):
+    from gradfield.cli import cmd_list
+    import types
+    cmd_list(types.SimpleNamespace())
+    captured = capsys.readouterr()
+    assert "rosenbrock" in captured.out
+    assert "sphere" in captured.out
+
+def test_plot_non_notebook(tmp_path):
+    from gradfield.notebook import plot
+    import os
+
+    out = str(tmp_path / "plot_test.html")
+    plot("sphere", resolution=20, output=out)
+    assert os.path.exists(out)
