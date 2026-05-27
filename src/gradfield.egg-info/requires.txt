@@ -1,0 +1,10 @@
+numpy>=1.23
+plotly>=5.0
+
+[dev]
+pytest
+build
+twine
+
+[torch]
+torch>=2.0

@@ -1,0 +1,116 @@
+# gradfield 🔥
+
+**Gradient field & loss landscape visualizer for PyTorch and NumPy**
+
+> Visualize any function's loss surface, gradient arrows, and optimization trajectories — in an interactive 3D HTML chart. No server, no config, one function call.
+
+![Python](https://img.shields.io/badge/python-3.9+-blue)
+![PyPI](https://img.shields.io/pypi/v/gradfield)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+---
+
+## Install
+
+```bash
+pip install gradfield
+```
+
+With PyTorch support:
+```bash
+pip install gradfield torch
+```
+
+---
+
+## Quick Start
+
+### Any Python function
+
+```python
+from gradfield import sample_grid, render
+
+field = sample_grid(
+    lambda x, y: (1 - x)**2 + 100 * (y - x**2)**2,  # Rosenbrock
+    x_range=(-2, 2),
+    y_range=(-1, 3),
+    resolution=80,
+)
+
+render(field, title="Rosenbrock Banana")
+# Opens an interactive HTML in your browser ✓
+```
+
+### PyTorch model loss landscape
+
+```python
+import torch.nn as nn
+from gradfield import model_loss_fn, sample_grid, render
+
+landscape = model_loss_fn(
+    model=my_model,
+    loss_fn=nn.CrossEntropyLoss(),
+    inputs=X_batch,
+    targets=y_batch,
+    scale=0.5,
+)
+
+field = sample_grid(landscape, resolution=50)
+render(field, title="My Model Loss Landscape")
+```
+
+### With optimization trajectories
+
+```python
+import numpy as np
+
+traj = np.array([[2.0, 2.0], [1.5, 1.5], [0.5, 0.5], [0.0, 0.0]])
+
+render(field, trajectories=[traj], title="Gradient Descent Path")
+```
+
+---
+
+## API Reference
+
+### `sample_grid(fn, x_range, y_range, resolution)`
+Sample a function over a 2D grid using NumPy central differences for gradients.
+
+### `sample_grid_torch(fn, x_range, y_range, resolution)`
+Same as above but uses `torch.autograd` for exact gradients.
+
+### `model_loss_fn(model, loss_fn, inputs, targets, scale)`
+Wraps a PyTorch model into a 2D landscape function using random filter-normalized directions (Li et al. 2018).
+
+### `render(field, trajectories, title, output, colorscale, show_gradients)`
+Render the sampled field as an interactive Plotly HTML with:
+- 3D surface plot
+- 2D contour map
+- Gradient vector field overlay
+- Optimization trajectory paths
+
+---
+
+## Examples
+
+```bash
+cd examples
+python example_numpy.py       # Rosenbrock + gradient descent
+python example_torch_model.py # MLP on XOR loss landscape
+```
+
+---
+
+## Roadmap
+
+- [ ] C++ accelerated grid sampler via pybind11
+- [ ] 1D loss curve along a direction
+- [ ] SGD / Adam / RMSProp built-in trajectory recorders
+- [ ] Jupyter widget support
+- [ ] Multi-trajectory comparison
+
+---
+
+## License
+
+MIT — built with ❤️ by Aman
